@@ -65,7 +65,7 @@ def calculate_breakout_probabilities(df, perc, num_levels=5, disable_zero_percen
     return probabilities, green_count, green_high_hit, green_low_hit, red_count, red_high_hit, red_low_hit
 
 
-def get_breakout_probability(open_price, high_price, low_price, close_price, prev_close, probabilities, 
+def get_breakout_probability(open_price, high_price, low_price, close_price, prev_close, prev_high, prev_low, probabilities, 
                              green_count, green_high_hit, green_low_hit, 
                              red_count, red_high_hit, red_low_hit, step):
     """
@@ -77,38 +77,31 @@ def get_breakout_probability(open_price, high_price, low_price, close_price, pre
         low_price (float): The lowest price.
         close_price (float): The closing price.
         prev_close (float): The previous closing price.
+        prev_high (float): The previous highest price.
+        prev_low (float): The previous lowest price.
         probabilities (dict): Pre-calculated probabilities from historical data.
         step (float): The percentage step used to calculate levels.
 
     Returns:
         dict: Breakout probabilities for the given open, high, low, close values.
     """
-    # breakout_probs = {
-    #     'up_probability': 0.0,
-    #     'down_probability': 0.0
-    # }
-    
     # Determine if the candle is green or red
     green = close_price > open_price
     red = close_price < open_price
     
     if green:
         green_count += 1
-        if high_price >= high_price + (step * prev_close):
+        if high_price >= prev_high + (step * prev_close):
             green_high_hit += 1
-            # breakout_probs['up_probability'] = probabilities.get('up_probability', 0.0)
-        if low_price <= low_price - (step * prev_close):
+        if low_price <= prev_low - (step * prev_close):
             green_low_hit += 1
-            # breakout_probs['down_probability'] = probabilities.get('down_probability', 0.0)
             
     if red:
         red_count += 1
-        if high_price >= high_price + (step * prev_close):
+        if high_price >= prev_high + (step * prev_close):
             red_high_hit += 1
-            # breakout_probs['up_probability'] = probabilities.get('up_probability', 0.0)
-        if low_price <= low_price - (step * prev_close):
+        if low_price <= prev_low - (step * prev_close):
             red_low_hit += 1
-            # breakout_probs['down_probability'] = probabilities.get('down_probability', 0.0)
 
     # Calculate probabilities
     probabilities = {}
