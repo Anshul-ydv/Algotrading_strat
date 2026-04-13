@@ -177,11 +177,7 @@ def calculate_metrics(equity_curve, trades):
     }
 
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-# (Keep all previously defined functions: generate_signals, backtest, calculate_metrics)
+# --- Optimization and Usage ---
 
 def optimize_ema_strategy(df, fast_range, medium_range, slow_range, initial_capital=10000):
     """
