@@ -1,5 +1,4 @@
-# ALGOtrading_strat
-
+# ALGO Trading Strategy 
 This repository contains multiple Python backtesting scripts for index, options, and ZigZag-based strategies. Most scripts are standalone experiments and use hardcoded CSV input paths.
 
 ## Repository Layout
